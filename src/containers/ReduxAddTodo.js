@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
 
-const AddTodo = ({ dispatch }) => {
+const ReduxAddTodo = ({ dispatch }) => {
   let input
 
   return (
@@ -24,4 +24,4 @@ const AddTodo = ({ dispatch }) => {
   )
 }
 
-export default connect()(AddTodo)
+export default connect()(ReduxAddTodo)
