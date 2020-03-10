@@ -17,20 +17,45 @@ const typeDefs = gql`
   type Todo {
     id: Int!
     text: String!
-    completed: Boolean
+    completed: Boolean!
   }
   type Todos {
-    todos: [Todo]
+    todos: [Todo] @client
   }
   type Query {
     todos: Todos!
   }
+  type Mutation {
+    addTodo(text: String!): Todos!
+  }
 `
+
+let nextTodoId = 0
+const todoStore = {
+  'todos': [],
+  '__typename': 'Todos',
+}
 
 const resolvers = {
   Query: {
-    todos: () => []
-  }
+    todos: () => {
+      return todoStore.todos
+    }
+  },
+  Mutation: {
+    addTodo: (_, { text }) => {
+      const newTodo = {
+        id: nextTodoId++,
+        text,
+        completed: false,
+        '__typename': 'Todo',
+      }
+
+      todoStore.todos.push(newTodo)
+
+      return todoStore.todos
+    }
+  },
 }
 
 const client = new ApolloClient({
