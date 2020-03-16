@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { VISIBILITY_FILTER_QUERY } from '../queries/VISIBILITY_FILTER_QUERY'
 import { SET_VISIBILITY_FILTER_MUTATION } from '../queries/SET_VISIBILITY_FILTER_MUTATION'
 
-const ApolloFilterLink = ({filter, children}) => {
+const FilterLink = ({filter, children}) => {
   const { loading, error, data } = useQuery(VISIBILITY_FILTER_QUERY)
   const [setVisibilityFilter] = useMutation(
     SET_VISIBILITY_FILTER_MUTATION,
@@ -43,4 +43,4 @@ const ApolloFilterLink = ({filter, children}) => {
 //   onClick: () => dispatch(setVisibilityFilter(ownProps.filter))
 // })
 
-export default ApolloFilterLink
+export default FilterLink

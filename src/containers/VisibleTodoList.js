@@ -20,7 +20,7 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const ApolloVisibleTodoList = () => {
+const VisibleTodoList = () => {
   const { loading: todoLoading, error: todoError, data: todoData } = useQuery(TODO_LIST_QUERY)
   const { loading: filterLoading, error: filterError, data: filterData } = useQuery(VISIBILITY_FILTER_QUERY)
   const [toggleCompleted] = useMutation(
@@ -46,4 +46,4 @@ const ApolloVisibleTodoList = () => {
   )
 }
 
-export default ApolloVisibleTodoList
+export default VisibleTodoList

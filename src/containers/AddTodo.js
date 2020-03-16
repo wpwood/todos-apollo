@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { ADD_TODO_MUTATION } from '../queries/ADD_TODO_MUTATION'
 import { TODO_LIST_QUERY } from '../queries/TODO_LIST_QUERY'
 
-const ApolloAddTodo = () => {
+const AddTodo = () => {
   let input
   const [addTodo] = useMutation(
     ADD_TODO_MUTATION,
@@ -37,4 +37,4 @@ const ApolloAddTodo = () => {
   )
 }
 
-export default ApolloAddTodo
+export default AddTodo
