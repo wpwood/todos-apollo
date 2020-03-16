@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from './components/Footer'
+import ReduxFooter from './components/ReduxFooter'
 import ReduxAddTodo from './containers/ReduxAddTodo'
 import ReduxVisibleTodoList from './containers/ReduxVisibleTodoList'
 
@@ -7,7 +7,7 @@ const ReduxApp = () => (
   <div>
     <ReduxAddTodo />
     <ReduxVisibleTodoList />
-    <Footer />
+    <ReduxFooter />
   </div>
 )
 

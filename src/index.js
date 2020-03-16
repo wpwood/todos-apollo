@@ -21,26 +21,30 @@ const typeDefs = gql`
   }
   type Todos {
     todos: [Todo] @client
+    visibilityFilter: String @client
   }
   type Query {
     todos: Todos!
+    visibilityFilter: String!
   }
   type Mutation {
     addTodo(text: String!): Todos!
+    toggleCompleted(id: Int!): Todos!
+    setVisibilityFilter(filter: String!): String!
   }
 `
 
 let nextTodoId = 0
 const todoStore = {
   'todos': [],
+  'visibilityFilter': 'SHOW_ALL',
   '__typename': 'Todos',
 }
 
 const resolvers = {
   Query: {
-    todos: () => {
-      return todoStore.todos
-    }
+    todos: () => todoStore.todos,
+    visibilityFilter: () => todoStore.visibilityFilter,
   },
   Mutation: {
     addTodo: (_, { text }) => {
@@ -65,7 +69,12 @@ const resolvers = {
       })
 
       return todoStore.todos
-    }
+    },
+    setVisibilityFilter: (_, { filter }) => {
+      todoStore.visibilityFilter = filter
+
+      return todoStore.visibilityFilter
+    },
   },
 }
 
