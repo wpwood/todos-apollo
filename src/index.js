@@ -54,6 +54,17 @@ const resolvers = {
       todoStore.todos.push(newTodo)
 
       return todoStore.todos
+    },
+    toggleCompleted: (_, { id }) => {
+      todoStore.todos = todoStore.todos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, completed: !todo.completed }
+        }
+
+        return todo
+      })
+
+      return todoStore.todos
     }
   },
 }
