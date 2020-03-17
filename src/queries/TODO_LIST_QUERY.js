@@ -7,5 +7,6 @@ export const TODO_LIST_QUERY = gql`
       text @client
       completed @client
     }
+    visibilityFilter @client
   }
 `

@@ -32,7 +32,6 @@ let nextTodoId = 0
 const todoStore = {
   'todos': [],
   'visibilityFilter': 'SHOW_ALL',
-  '__typename': 'Todos',
 }
 
 const resolvers = {

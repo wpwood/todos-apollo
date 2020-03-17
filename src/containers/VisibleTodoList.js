@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import TodoList from '../components/TodoList'
 import { VisibilityFilters } from '../actions'
 import { TODO_LIST_QUERY } from '../queries/TODO_LIST_QUERY'
-import { VISIBILITY_FILTER_QUERY } from '../queries/VISIBILITY_FILTER_QUERY'
 import { TOGGLE_COMPLETED_MUTATION } from '../queries/TOGGLE_COMPLETED_MUTATION'
 
 const getVisibleTodos = (todos, filter) => {
@@ -21,8 +20,7 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const VisibleTodoList = () => {
-  const { loading: todoLoading, error: todoError, data: todoData } = useQuery(TODO_LIST_QUERY)
-  const { loading: filterLoading, error: filterError, data: filterData } = useQuery(VISIBILITY_FILTER_QUERY)
+  const { loading, error, data } = useQuery(TODO_LIST_QUERY)
   const [toggleCompleted] = useMutation(
     TOGGLE_COMPLETED_MUTATION,
     {
@@ -35,11 +33,10 @@ const VisibleTodoList = () => {
     }
   )
 
-  if (todoLoading || filterLoading) return <h2>Loading...</h2>
-  if (todoError) return <div>{todoError}</div>
-  if (filterError) return <div>{filterError}</div>
+  if (loading) return <h2>Loading...</h2>
+  if (error) return <div>{error}</div>
 
-    const filteredTodos = getVisibleTodos(todoData.todos, filterData.visibilityFilter)
+    const filteredTodos = getVisibleTodos(data.todos, data.visibilityFilter)
 
   return (
     <TodoList todos={filteredTodos} toggleTodo={id => toggleCompleted({ variables: { id } })}/>
