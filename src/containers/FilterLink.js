@@ -3,7 +3,7 @@ import Link from '../components/Link'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import { VISIBILITY_FILTER_QUERY } from '../queries/VISIBILITY_FILTER_QUERY'
-import { SET_VISIBILITY_FILTER_MUTATION } from '../queries/SET_VISIBILITY_FILTER_MUTATION'
+import { SET_VISIBILITY_FILTER_MUTATION, updateLocalCache } from '../queries/SET_VISIBILITY_FILTER_MUTATION'
 
 const FilterLink = ({filter, children}) => {
   const { loading, error, data } = useQuery(VISIBILITY_FILTER_QUERY)
@@ -11,10 +11,7 @@ const FilterLink = ({filter, children}) => {
     SET_VISIBILITY_FILTER_MUTATION,
     {
       update(cache, { data: { setVisibilityFilter } }) {
-        cache.writeQuery({
-          query: VISIBILITY_FILTER_QUERY,
-          data: { visibilityFilter: setVisibilityFilter }
-        })
+        updateLocalCache(cache, setVisibilityFilter)
       }
     }
   )

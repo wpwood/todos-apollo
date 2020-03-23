@@ -1,8 +1,7 @@
 import React from 'react'
 
 import { useMutation } from '@apollo/react-hooks'
-import { ADD_TODO_MUTATION } from '../queries/ADD_TODO_MUTATION'
-import { TODO_LIST_QUERY } from '../queries/TODO_LIST_QUERY'
+import { ADD_TODO_MUTATION, updateLocalCache } from '../queries/ADD_TODO_MUTATION'
 
 const AddTodo = () => {
   let input
@@ -10,10 +9,7 @@ const AddTodo = () => {
     ADD_TODO_MUTATION,
     {
       update(cache, { data: { addTodo } }) {
-        cache.writeQuery({
-          query: TODO_LIST_QUERY,
-          data: { todos: addTodo }
-        })
+        updateLocalCache(cache, addTodo)
       }
     }
   )

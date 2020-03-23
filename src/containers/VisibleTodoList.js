@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import TodoList from '../components/TodoList'
 import { VisibilityFilters } from '../actions'
 import { TODO_LIST_QUERY } from '../queries/TODO_LIST_QUERY'
-import { TOGGLE_COMPLETED_MUTATION } from '../queries/TOGGLE_COMPLETED_MUTATION'
+import { TOGGLE_COMPLETED_MUTATION, updateLocalCache } from '../queries/TOGGLE_COMPLETED_MUTATION'
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -25,10 +25,7 @@ const VisibleTodoList = () => {
     TOGGLE_COMPLETED_MUTATION,
     {
       update(cache, { data: { toggleCompleted } }) {
-        cache.writeQuery({
-          query: TODO_LIST_QUERY,
-          data: { todos: toggleCompleted }
-        })
+        updateLocalCache(cache, toggleCompleted)
       }
     }
   )
@@ -36,7 +33,7 @@ const VisibleTodoList = () => {
   if (loading) return <h2>Loading...</h2>
   if (error) return <div>{error}</div>
 
-    const filteredTodos = getVisibleTodos(data.todos, data.visibilityFilter)
+  const filteredTodos = getVisibleTodos(data.todos, data.visibilityFilter)
 
   return (
     <TodoList todos={filteredTodos} toggleTodo={id => toggleCompleted({ variables: { id } })}/>
